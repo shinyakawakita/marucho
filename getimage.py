@@ -12,7 +12,7 @@ WEEK    = {'Sunday'     :[1336,205,1977,1088],
            'Tuesday'    :[50,205,379,1088],
            'Wednesday'  :[372,205,700,1088],
            'Thursday'   :[696,205,1021,1008],
-           'Friday'     :[50,205,1339,1088],
+           'Friday'     :[1022,205,1339,1088],
            'Saturday'   :[1336,205,1977,1088]}
 KEYWORD = 'ラスパ白山'
 LEAFLET = "leaflet.jpeg"
@@ -40,13 +40,18 @@ def save_image(image,path):
 def load_image(path):
     return Image.open('./'+path)
 
+def scale_to_height(img, height):
+    width = round(img.width * height / img.height)
+    return img.resize((width, height))
+
 leafret_path = download_leaflet(TARGET,KEYWORD,LEAFLET)
 img = load_image(leafret_path)
 
 for k, v in WEEK.items():
     print(k,v)
     img_crop = img.crop(v)
-    save_image(img_crop, f"tokubai_{k}.png")
+    img_resize = scale_to_height(img_crop, 300)
+    save_image(img_resize, f"tokubai_{k}.png")
 
 
 
