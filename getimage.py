@@ -16,17 +16,21 @@ WEEK    = {'Sunday'     :[1336,205,1977,1088],
            'Saturday'   :[1336,205,1977,1088]}
 KEYWORD = 'ラスパ白山'
 LEAFLET = "leaflet.jpeg"
+TEXT    = "imgurl.txt"
 
 def download_leaflet(url,keyword,path):
     imgurl = get_leaflet_url(url,keyword)
-    print(imgurl)
+    
+    with open(TEXT,mode='w') as f:
+        f.write(imgurl)
+    
     r = requests.get(imgurl)
     if r.status_code == 200:
         i = Image.open(BytesIO(r.content))
         imgname = f"leaflet.{i.format.lower()}"
         imgname_small = f"small_leaf.{i.format.lower()}"
         save_image(i,imgname)
-        save_image(scale_to_width(i, 350),imgname_small)
+        save_image(scale_to_width(i, 200),imgname_small)
         return imgname
 
 def get_leaflet_url(url,keyword):
