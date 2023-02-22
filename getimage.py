@@ -26,7 +26,7 @@ def download_leaflet(url,keyword,path):
         imgname = f"leaflet.{i.format.lower()}"
         imgname_small = f"small_leaf.{i.format.lower()}"
         save_image(i,imgname)
-        save_image(scale_to_height(i, 300),imgname_small)
+        save_image(scale_to_width(i, 350),imgname_small)
         return imgname
 
 def get_leaflet_url(url,keyword):
@@ -44,6 +44,10 @@ def load_image(path):
 
 def scale_to_height(img, height):
     width = round(img.width * height / img.height)
+    return img.resize((width, height))
+
+def scale_to_width(img, width):
+    height = round(img.height * width / img.width)
     return img.resize((width, height))
 
 leafret_path = download_leaflet(TARGET,KEYWORD,LEAFLET)
