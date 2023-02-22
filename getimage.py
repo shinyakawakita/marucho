@@ -24,7 +24,9 @@ def download_leaflet(url,keyword,path):
     if r.status_code == 200:
         i = Image.open(BytesIO(r.content))
         imgname = f"leaflet.{i.format.lower()}"
+        imgname_small = f"small_leaf.{i.format.lower()}"
         save_image(i,imgname)
+        save_image(scale_to_height(i, 400),imgname_small)
         return imgname
 
 def get_leaflet_url(url,keyword):
