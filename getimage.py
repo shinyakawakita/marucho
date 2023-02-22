@@ -45,8 +45,8 @@ def scale_to_height(img, height):
     return img.resize((width, height))
 
 leafret_path = download_leaflet(TARGET,KEYWORD,LEAFLET)
-img = load_image(leafret_path)
 
+img = load_image(leafret_path)
 for k, v in WEEK.items():
     print(k,v)
     img_crop = img.crop(v)
